@@ -1,0 +1,50 @@
+{% load cms_tags sekizai_tags %}
+
+<div class="plugin-modal {{ instance.classes }}">
+	<div id="modal-preview-{{ instance.id }}">
+		{% for plugin in instance.child_plugin_instances %}
+			{% if plugin.get_plugin_name == 'Preview Container' %}
+				{% render_plugin plugin %}
+			{% endif %}
+		{% else %}
+	</div>
+	<div class="modal fade" id="plugin-modal-{{ instance.id }}" tabindex="-1" role="dialog" aria-labelledby="plugin-modal-label-{{ instance.id }}">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="plugin-modal-label-{{ instance.id }}">{{ instance.title }}</h4>
+					{% for plugin in instance.child_plugin_instances %}
+						{% if plugin.get_plugin_name == 'Title Container' %}
+							{% render_plugin plugin %}
+						{% endif %}
+					{% endfor %}
+				</div>
+				<div class="modal-body">
+					{% for plugin in instance.child_plugin_instances %}
+						{% if plugin.get_plugin_name == 'Content Container' %}
+							{% render_plugin plugin %}
+						{% endif %}
+					{% endfor %}						
+				</div>
+				<div class="modal-footer">		
+					{% for plugin in instance.child_plugin_instances %}
+						{% if plugin.get_plugin_name == 'Footer Container' %}
+							{% render_plugin plugin %}
+						{% endif %}
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% addtoblock 'js' %}
+<script type="text/javascript">
+$(document).ready(function() {
+	$('#modal-preview-{{ instance.id }}').on('click', '*', function () {
+        $('#plugin-modal-{{ instance.id }}').modal('show');
+    });
+});
+</script>
+{% endaddtoblock %}
