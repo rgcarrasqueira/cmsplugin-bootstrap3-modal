@@ -7,6 +7,10 @@ from django.db import models
 class ModalContainer(CMSPlugin):
     title = models.CharField(verbose_name=_('Title'), max_length=60, blank=True)
     
+    top = models.CharField(verbose_name='Top', max_length=20, blank=True)
+    size = models.CharField(choices=(('sm', _('Small')), ('md', _('Medium')), ('lg', _('Large'))),
+                            max_length=2, default='md', blank=True, verbose_name=_('Modal window size'))
+    
     classes = models.TextField(verbose_name=_('Classes'), blank=True)
     
     def __str__(self):

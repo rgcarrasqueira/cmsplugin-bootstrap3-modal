@@ -6,10 +6,10 @@
 			{% if plugin.get_plugin_name == 'Preview Container' %}
 				{% render_plugin plugin %}
 			{% endif %}
-		{% else %}
+		{% endfor %}
 	</div>
 	<div class="modal fade" id="plugin-modal-{{ instance.id }}" tabindex="-1" role="dialog" aria-labelledby="plugin-modal-label-{{ instance.id }}">
-		<div class="modal-dialog" role="document">
+		<div class="modal-dialog modal-{{ instance.size }}" {% if instance.top %}style="top: {{ instance.top }};"{% endif %} role="document">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
